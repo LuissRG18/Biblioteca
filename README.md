@@ -230,7 +230,7 @@ El servidor estará disponible en: `http://localhost:3000`
 ## 📊 Estructura del Proyecto
 
 ```
-/Pokedex
+/Biblioteca
 ├── backend/
 │   ├── src/
 │   │   ├── config/
@@ -252,7 +252,23 @@ El servidor estará disponible en: `http://localhost:3000`
 ├── frontend-angular/
 │   └── (Proyecto Angular - Próximamente)
 ├── frontend-react/
-│   └── (Proyecto React - En desarrollo)
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Navbar.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── Home.tsx
+│   │   │   ├── LibroBoard.tsx
+│   │   │   ├── LibroCard.tsx
+│   │   │   ├── LibroDetalle.tsx
+│   │   │   └── LibroForm.tsx
+│   │   ├── services/
+│   │   │   └── libroService.ts
+│   │   ├── App.tsx
+│   │   └── main.tsx
+│   ├── public/
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.ts
 └── README.md
 ```
 
@@ -340,64 +356,9 @@ Proyecto Final Integrador - MEAN Stack + Angular + React
 
 ISC
 
-1. **No Duplicados:** No se permiten Pokémons con el mismo nombre o número de Pokédex.
-2. **Validación de Rangos:** 
-   - `poderAtaque` debe estar entre 1 y 100
-   - `nivel` debe estar entre 1 y 50
-   - `numero` debe estar entre 1 y 1000
-3. **Estado Activo:** Solo los Pokémons con `activo: true` aparecen en listados públicos.
-4. **Tipos Válidos:** Solo se aceptan tipos de la lista predefinida (18 tipos oficiales).
-5. **Tipos Mínimos/Máximos:** Un Pokémon debe tener al menos 1 tipo y máximo 2 tipos.
-
 ---
 
-## 🚀 Endpoints de la API
-
-**Base URL:** `http://localhost:3000/api/v1`
-
-### Documentación
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| GET | `/` | Documentación de la API |
-
-### CRUD Pokémons
-| Método | Endpoint | Descripción | Parámetros |
-|--------|----------|-------------|------------|
-| GET | `/pokemones/get/all` | Obtener todos los Pokémons (paginado) | `?page=1&limit=20&tipo=fuego&activo=true` |
-| GET | `/pokemones/get/:id` | Obtener un Pokémon por ID | `id` (MongoDB ObjectId) |
-| POST | `/pokemones/post` | Crear nuevo Pokémon | Body: Pokemon JSON |
-| PATCH | `/pokemones/update/:id` | Actualizar Pokémon | `id` + Body: campos a actualizar |
-| DELETE | `/pokemones/delete/:id` | Eliminar Pokémon | `id` |
-
-### Ejemplos de Requests
-
-#### POST /api/v1/pokemones/post
-```json
-{
-  "numero": 25,
-  "nombre": "Pikachu",
-  "descripcion": "Un Pokémon eléctrico conocido por sus mejillas que almacenan electricidad",
-  "tipos": ["eléctrico"],
-  "poderAtaque": 55,
-  "nivel": 15,
-  "imagen": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-  "esFavorito": false,
-  "activo": true
-}
-```
-
-#### PATCH /api/v1/pokemones/update/:id
-```json
-{
-  "nivel": 20,
-  "poderAtaque": 65,
-  "esFavorito": true
-}
-```
-
----
-
-## 🗃️ Configuración de MongoDB
+## 🗃️ Configuración de MongoDB Atlas
 
 ### Paso 1: Crear Cuenta en MongoDB Atlas
 
@@ -419,7 +380,7 @@ ISC
 2. Clic en **"Add New Database User"**
 3. Configurar:
    - Authentication Method: **Password**
-   - Username: `pokedex_admin`
+   - Username: `biblioteca_admin`
    - Password: Generar una segura (guardarla)
    - Database User Privileges: **"Atlas admin"**
 4. Clic en **"Add User"**
@@ -440,7 +401,7 @@ ISC
 4. Driver: **Node.js**, Version: **5.5 or later**
 5. Copiar el string de conexión:
 ```
-mongodb+srv://pokedex_admin:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+mongodb+srv://biblioteca_admin:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
 ```
 
 ### Paso 6: Crear Archivo .env en Backend
@@ -448,14 +409,16 @@ mongodb+srv://pokedex_admin:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=t
 Crear archivo `backend/.env`:
 ```env
 PORT=3000
-MONGO_URI=mongodb+srv://pokedex_admin:TU_PASSWORD_AQUI@cluster0.xxxxx.mongodb.net/pokedex_db?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://biblioteca_admin:TU_PASSWORD_AQUI@cluster0.xxxxx.mongodb.net/biblioteca?retryWrites=true&w=majority
 NODE_ENV=development
 ```
 
 **⚠️ IMPORTANTE:** Reemplazar:
 - `TU_PASSWORD_AQUI` con la contraseña del usuario
 - `xxxxx` con el ID de tu cluster
-- Agregar `/pokedex_db` antes de `?retryWrites` para especificar la base de datos
+- Agregar `/biblioteca` antes de `?retryWrites` para especificar la base de datos
+
+**📚 Ver tutorial completo:** [`backend/MONGODB_SETUP_TUTORIAL.md`](./backend/MONGODB_SETUP_TUTORIAL.md)
 
 ---
 
@@ -465,19 +428,18 @@ NODE_ENV=development
 ```bash
 cd backend
 npm install
-npm run seed    # Poblar base de datos con 25 pokémons
+npm run seed    # Poblar base de datos con 25 libros
 npm run dev     # Iniciar servidor en http://localhost:3000
 ```
 
-### Frontend React (Raíz del proyecto)
+### Frontend React
 ```bash
-# Desde la raíz del proyecto
 cd frontend-react
 npm install
 npm run dev     # Iniciar en http://localhost:5173
 ```
 
-### Frontend Angular (A crear en Fase 2)
+### Frontend Angular (Próximamente)
 ```bash
 cd frontend-angular
 npm install
@@ -502,57 +464,12 @@ ng serve        # Iniciar en http://localhost:4200
 - TypeScript
 - Vite
 
-### Frontend Angular
+### Frontend Angular (Próximamente)
 - Angular 18+
 - Angular Router
 - Angular Reactive Forms
 - Bootstrap 5
 - TypeScript
-
----
-
-## 📁 Estructura del Proyecto
-
-```
-Pokedex/
-├── backend/                        # API REST (Node.js + Express + MongoDB)
-│   ├── src/
-│   │   ├── config/
-│   │   │   └── database.js
-│   │   ├── models/
-│   │   │   └── Pokemon.js
-│   │   ├── controllers/
-│   │   │   └── pokemonController.js
-│   │   ├── routes/
-│   │   │   └── pokemonRoutes.js
-│   │   ├── middlewares/
-│   │   │   └── errorHandler.js
-│   │   └── app.js
-│   ├── scripts/
-│   │   └── seed.js
-│   ├── server.js
-│   ├── package.json
-│   └── .env
-│
-├── frontend-react/                 # Cliente React (Fase 3)
-│   ├── src/
-│   │   ├── components/
-│   │   ├── services/
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   ├── public/
-│   ├── index.html
-│   ├── package.json
-│   ├── vite.config.ts
-│   └── .env
-│
-├── frontend-angular/               # Cliente Angular (Fase 2 - Pendiente)
-│   └── (Por crear)
-│
-├── README.md
-├── INICIO_RAPIDO.md
-└── .gitignore
-```
 
 ---
 
@@ -563,10 +480,10 @@ Pokedex/
 - [x] API REST con Node.js + Express + MongoDB
 - [x] CRUD completo (5 endpoints + documentación)
 - [x] Modelo con todos los campos requeridos
-- [x] 6 reglas de negocio implementadas (el doble de lo requerido)
+- [x] 6 reglas de negocio implementadas
 - [x] Validaciones completas
 - [x] Manejo de errores con status codes
-- [x] Base de datos poblada con 25 registros
+- [x] Base de datos poblada con 25 libros
 - [x] Paginación, filtros y búsqueda
 - [x] Documentación completa
 
@@ -577,15 +494,16 @@ Pokedex/
 - [ ] Consumo completo de API
 - [ ] Bootstrap UI
 
-### 🔄 Fase 3 - Frontend React (30% - En Progreso)
+### ✅ Fase 3 - Frontend React (100% Completo)
 - [x] Estructura base con Vite + TypeScript
-- [x] Servicio API con Fetch
-- [x] Componentes funcionales y hooks básicos
+- [x] Servicio API completo
+- [x] Componentes funcionales con hooks
 - [x] React Router configurado
-- [ ] CRUD completo funcionando
-- [ ] Formularios controlados
-- [ ] Bootstrap UI completo
-- [ ] Paginación y filtros
+- [x] CRUD completo funcionando
+- [x] Formularios controlados con validaciones
+- [x] Bootstrap UI completo
+- [x] Paginación y filtros
+- [x] Vista de detalle y edición
 
 ### ✅ Documentación (100% Completa)
 - [x] README completo con todos los apartados
@@ -598,28 +516,25 @@ Pokedex/
 
 ---
 
-## 🌐 URLs de Despliegue
+## 🌐 URLs de Desarrollo
 
 ### API Backend
 - **Local:** http://localhost:3000/api/v1
-- **Producción:** [Pendiente de despliegue en Railway/Render]
+- **Documentación API:** http://localhost:3000/api/v1
 
 ### Frontend React
 - **Local:** http://localhost:5173
-- **Producción:** [Pendiente de despliegue en Vercel/Netlify]
 
-### Frontend Angular
-- **Local:** http://localhost:4200 (cuando se cree)
-- **Producción:** [Pendiente de despliegue en Vercel/Netlify]
+### Frontend Angular (Próximamente)
+- **Local:** http://localhost:4200
 
 ---
 
 ## 📈 Próximos Pasos
 
-1. **Prioridad Alta:** Completar Frontend React (componentes, CRUD, formularios)
-2. **Prioridad Alta:** Implementar Frontend Angular completo
-3. **Prioridad Media:** Deploy de todas las aplicaciones
-4. **Prioridad Baja:** Agregar capturas de pantalla y diagrama ER
+1. **Prioridad Alta:** Implementar Frontend Angular completo
+2. **Prioridad Media:** Deploy de todas las aplicaciones
+3. **Prioridad Baja:** Agregar capturas de pantalla
 
 ---
 
