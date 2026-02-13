@@ -1,6 +1,6 @@
 # 🅰️ Biblioteca - Frontend Angular
 
-⚠️ **ESTADO:** Pendiente de implementación (Fase 2 del proyecto)
+✅ **ESTADO:** Implementado y funcional (Fase 2 del proyecto)
 
 ---
 
