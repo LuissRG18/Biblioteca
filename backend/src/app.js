@@ -2,8 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import libroRoutes from './routes/libroRoutes.js';
 import { errorHandler, notFound } from './middlewares/errorHandler.js';
+import { connectDB } from './config/database.js';
 
 const app = express();
+
+// Conectar a MongoDB
+connectDB().catch(err => console.error('Error connecting to MongoDB:', err));
 
 // Middlewares globales
 // Configuración de CORS
