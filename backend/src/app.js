@@ -6,7 +6,34 @@ import { errorHandler, notFound } from './middlewares/errorHandler.js';
 const app = express();
 
 // Middlewares globales
-app.use(cors()); // Permitir CORS para todos los orígenes
+// Configuración de CORS
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'http://localhost:4200',
+      'http://localhost:5173', // Vite React dev
+      'https://biblioteca-angular.vercel.app',
+      'https://biblioteca-react.vercel.app',
+      'https://biblioteca-api.vercel.app'
+    ];
+
+    // Permitir requests sin origin (mobile apps, Postman, etc.)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else if (process.env.NODE_ENV === 'development') {
+      // En desarrollo, permitir todos
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
+app.use(cors(corsOptions)); // Permitir CORS para todos los orígenes
 app.use(express.json()); // Parsear JSON en body
 app.use(express.urlencoded({ extended: true })); // Parsear form data
 

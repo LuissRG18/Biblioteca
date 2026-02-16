@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/biblioteca-angular"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "^/(?!(?:api|assets)/).*$",
+      "dest": "dist/biblioteca-angular/index.html"
+    },
+    {
+      "src": "/api/(.*)",
+      "status": 404
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "NG_BUILD_CONFIGURATION": "production"
+  }
+}
+

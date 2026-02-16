@@ -5,9 +5,15 @@ import { connectDB } from './src/config/database.js';
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
+// Variable para rastrear si MongoDB ya está conectado
+let dbConnected = false;
+
 const startServer = async () => {
   try {
-    await connectDB();
+    if (!dbConnected) {
+      await connectDB();
+      dbConnected = true;
+    }
     app.listen(PORT, () => {
       console.log(`\n🚀 Servidor corriendo en puerto ${PORT}`);
       console.log(`📍 http://localhost:${PORT}/api/v1\n`);
@@ -18,5 +24,11 @@ const startServer = async () => {
   }
 };
 
-startServer();
+// Para desarrollo local
+if (process.env.NODE_ENV !== 'production') {
+  startServer();
+}
+
+// Exportar para Vercel serverless
+export default app;
 
