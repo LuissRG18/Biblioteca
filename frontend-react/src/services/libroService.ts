@@ -133,6 +133,20 @@ class LibroService {
 
       if (!response.ok) {
         const errorData = await response.json();
+
+        // Si hay errores de validación específicos, mostrarlos
+        if (errorData.errors && Array.isArray(errorData.errors)) {
+          const errorMessages = errorData.errors.map((err: any) =>
+            `${err.field}: ${err.message} (valor: ${err.value})`
+          ).join('\n');
+          throw new Error(`${errorData.message}\n${errorMessages}`);
+        }
+
+        // Si hay detalles adicionales, incluirlos
+        if (errorData.details) {
+          throw new Error(`${errorData.message}\nDetalles: ${errorData.details}`);
+        }
+
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
@@ -159,6 +173,20 @@ class LibroService {
 
       if (!response.ok) {
         const errorData = await response.json();
+
+        // Si hay errores de validación específicos, mostrarlos
+        if (errorData.errors && Array.isArray(errorData.errors)) {
+          const errorMessages = errorData.errors.map((err: any) =>
+            `${err.field}: ${err.message} (valor: ${err.value})`
+          ).join('\n');
+          throw new Error(`${errorData.message}\n${errorMessages}`);
+        }
+
+        // Si hay detalles adicionales, incluirlos
+        if (errorData.details) {
+          throw new Error(`${errorData.message}\nDetalles: ${errorData.details}`);
+        }
+
         throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 

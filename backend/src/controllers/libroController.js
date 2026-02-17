@@ -157,13 +157,51 @@ export const createLibro = async (req, res) => {
       data: libro,
     });
   } catch (error) {
+    console.error('========================================');
+    console.error('Error en createLibro:');
+    console.error('Error completo:', error);
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Error errors:', error.errors);
+    console.error('Error keys:', error.errors ? Object.keys(error.errors) : 'N/A');
+    console.error('========================================');
+
     // Errores de validación de Mongoose
     if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map(err => err.message);
+      const messages = [];
+
+      // Verificar si error.errors existe
+      if (error.errors) {
+        // Iterar sobre los errores
+        for (const field in error.errors) {
+          const err = error.errors[field];
+
+          if (err) {
+            messages.push({
+              field: field,
+              message: err.message || err.toString(),
+              value: err.value !== undefined ? err.value : (err.properties?.value || req.body[field])
+            });
+          }
+        }
+      }
+
+      // Si no hay mensajes específicos, usar el mensaje general
+      if (messages.length === 0) {
+        messages.push({
+          field: 'general',
+          message: error.message,
+          value: null
+        });
+      }
+
+      console.error('Errores formateados:', JSON.stringify(messages, null, 2));
+
       return res.status(400).json({
         success: false,
         message: 'Error de validación',
         errors: messages,
+        details: error.message
       });
     }
 
@@ -179,6 +217,10 @@ export const updateLibro = async (req, res) => {
   try {
     const { id } = req.params;
     const updateData = req.body;
+
+    console.log('=== UPDATE LIBRO ===');
+    console.log('ID:', id);
+    console.log('Update Data:', JSON.stringify(updateData, null, 2));
 
     // Verificar que no se actualice a un ISBN duplicado
     if (updateData.isbn) {
@@ -211,18 +253,58 @@ export const updateLibro = async (req, res) => {
       });
     }
 
+    console.log('Libro actualizado correctamente');
+
     res.status(200).json({
       success: true,
       message: 'Libro actualizado exitosamente',
       data: libro,
     });
   } catch (error) {
+    console.error('========================================');
+    console.error('Error en updateLibro:');
+    console.error('Error completo:', error);
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Error errors:', error.errors);
+    console.error('Error keys:', error.errors ? Object.keys(error.errors) : 'N/A');
+    console.error('========================================');
+
     if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map(err => err.message);
+      const messages = [];
+
+      // Verificar si error.errors existe
+      if (error.errors) {
+        // Iterar sobre los errores
+        for (const field in error.errors) {
+          const err = error.errors[field];
+
+          if (err) {
+            messages.push({
+              field: field,
+              message: err.message || err.toString(),
+              value: err.value !== undefined ? err.value : (err.properties?.value || updateData[field])
+            });
+          }
+        }
+      }
+
+      // Si no hay mensajes específicos, usar el mensaje general
+      if (messages.length === 0) {
+        messages.push({
+          field: 'general',
+          message: error.message,
+          value: null
+        });
+      }
+
+      console.error('Errores formateados:', JSON.stringify(messages, null, 2));
+
       return res.status(400).json({
         success: false,
         message: 'Error de validación',
         errors: messages,
+        details: error.message
       });
     }
 

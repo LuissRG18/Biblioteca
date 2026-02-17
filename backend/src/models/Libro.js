@@ -57,7 +57,10 @@ const libroSchema = new mongoose.Schema(
             'ficción', 'no ficción', 'novela', 'ciencia ficción', 'fantasía',
             'thriller', 'misterio', 'romance', 'histórico', 'biografía',
             'autoayuda', 'tecnología', 'ciencia', 'poesía', 'drama',
-            'terror', 'aventura', 'policial', 'filosofía', 'ensayo'
+            'terror', 'aventura', 'policial', 'filosofía', 'ensayo',
+            'clásico', 'juvenil', 'educativo', 'psicología', 'programación',
+            'divulgación', 'economía', 'cocina', 'recetas', 'infantil',
+            'desarrollo personal'
           ];
 
           return generos.every(g => generosValidos.includes(g.toLowerCase()));
@@ -104,10 +107,12 @@ const libroSchema = new mongoose.Schema(
       default: null,
       validate: {
         validator: function(url) {
-          if (!url) return true;
-          return /^https?:\/\/.+/.test(url);
+          // Permitir null, undefined o cadena vacía
+          if (!url || url.trim() === '') return true;
+          // Validar que sea una URL válida que empiece con http:// o https://
+          return /^https?:\/\/.+\..+/.test(url);
         },
-        message: 'La portada debe ser una URL válida'
+        message: 'La portada debe ser una URL válida que comience con http:// o https://'
       }
     }
   },
@@ -173,6 +178,33 @@ libroSchema.pre('save', function(next) {
   // Actualizar disponibilidad según stock
   this.disponible = this.stock > 0;
   next();
+});
+
+// Middleware pre-update: Normalizar géneros también en actualizaciones
+libroSchema.pre('findOneAndUpdate', function(next) {
+  try {
+    const update = this.getUpdate();
+
+    // Manejar diferentes estructuras de actualización ($set, directo, etc.)
+    const updateData = update.$set || update;
+
+    // Si se actualizan los géneros, normalizarlos a minúsculas
+    if (updateData.generos && Array.isArray(updateData.generos)) {
+      updateData.generos = updateData.generos.map(g =>
+        typeof g === 'string' ? g.toLowerCase() : g
+      );
+    }
+
+    // Si se actualiza el stock, actualizar disponibilidad
+    if (updateData.stock !== undefined) {
+      updateData.disponible = updateData.stock > 0;
+    }
+
+    next();
+  } catch (error) {
+    console.error('Error en middleware pre-update:', error);
+    next(error);
+  }
 });
 
 const Libro = mongoose.model('Libro', libroSchema);

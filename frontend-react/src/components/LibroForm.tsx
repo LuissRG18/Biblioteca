@@ -179,13 +179,22 @@ export default function LibroForm() {
     setSubmitError(null)
 
     try {
+      // Preparar datos para enviar - eliminar portada si está vacía
+      const dataToSend = { ...formData }
+      if (!dataToSend.portada || dataToSend.portada.trim() === '') {
+        delete dataToSend.portada
+      }
+
+      console.log('Datos a enviar:', dataToSend)
+
       if (isEditMode && id) {
-        await libroService.updateLibro(id, formData)
+        await libroService.updateLibro(id, dataToSend)
       } else {
-        await libroService.createLibro(formData)
+        await libroService.createLibro(dataToSend)
       }
       navigate('/libros')
     } catch (err: any) {
+      console.error('Error completo:', err)
       setSubmitError(err?.message || 'Error al guardar el libro')
     } finally {
       setLoading(false)
