@@ -120,7 +120,7 @@ const libroSchema = new mongoose.Schema(
 // Índices para mejorar rendimiento de búsquedas
 libroSchema.index({ titulo: 1 });
 libroSchema.index({ autor: 1 });
-libroSchema.index({ isbn: 1 });
+// No crear índice para isbn aquí, ya que unique: true lo crea automáticamente
 libroSchema.index({ generos: 1 });
 libroSchema.index({ disponible: 1 });
 
