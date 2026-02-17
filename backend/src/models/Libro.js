@@ -124,7 +124,7 @@ libroSchema.index({ autor: 1 });
 libroSchema.index({ generos: 1 });
 libroSchema.index({ disponible: 1 });
 
-// Método virtual para obtener título capitalizado
+// Métoodo virtual para obtener título capitalizado
 libroSchema.virtual('tituloCapitalizado').get(function() {
   return this.titulo
     .split(' ')
@@ -132,13 +132,13 @@ libroSchema.virtual('tituloCapitalizado').get(function() {
     .join(' ');
 });
 
-// Método de instancia: Verificar disponibilidad
+// Métoodo de instancia: Verificar disponibilidad
 libroSchema.methods.verificarDisponibilidad = function() {
   this.disponible = this.stock > 0;
   return this.save();
 };
 
-// Método de instancia: Prestar libro
+// Métoodo de instancia: Prestar libro
 libroSchema.methods.prestar = function() {
   if (this.stock > 0) {
     this.stock--;
@@ -148,19 +148,19 @@ libroSchema.methods.prestar = function() {
   throw new Error('No hay ejemplares disponibles');
 };
 
-// Método de instancia: Devolver libro
+// Métoodo de instancia: Devolver libro
 libroSchema.methods.devolver = function() {
   this.stock++;
   this.disponible = true;
   return this.save();
 };
 
-// Método estático: Buscar por género
+// Métoodo estático: Buscar por género
 libroSchema.statics.buscarPorGenero = function(genero) {
   return this.find({ generos: genero.toLowerCase(), disponible: true });
 };
 
-// Método estático: Buscar por autor
+// Métoodo estático: Buscar por autor
 libroSchema.statics.buscarPorAutor = function(autor) {
   return this.find({ autor: new RegExp(autor, 'i'), disponible: true });
 };

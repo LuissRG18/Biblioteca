@@ -23,6 +23,21 @@ const librosData = [
     disponible: true
   },
   {
+    isbn: '978-0618640157',
+    titulo: 'El Señor de los anillos',
+    autor: 'J.R.R. Tolkien',
+    editorial: 'Minotauro',
+    anioPublicacion: 1954,
+    generos: ['fantasía', 'aventura'],
+    numeroPaginas: 1216,
+    descripcion: 'La épica historia de la lucha entre el bien y el mal en la Tierra Media, centrada en el viaje de Frodo Bolsón para destruir el Anillo Único.',
+    idioma: 'español',
+    precio: 35.00,
+    stock: 10,
+    portada: 'https://imgs.search.brave.com/LGub5l12oGIWkyFWF6seyUJJ_Tgjk-qthCmnJG7-Yr8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/ZXN0dWRpb2VuZXNj/YXJsYXRhLmNvbS9t/ZWRpYS9pbWcvcG9y/dGFkYXMvX3Zpc2Rf/MDAwMUpQRzAxUzdB/LmpwZw',
+    disponible: true
+  },
+  {
     isbn: '9788420412146',
     titulo: 'Don Quijote de la Mancha',
     autor: 'Miguel de Cervantes',

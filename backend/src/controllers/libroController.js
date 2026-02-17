@@ -1,10 +1,5 @@
 import Libro from '../models/Libro.js';
 
-/**
- * @desc    Obtener todos los libros con paginación y filtros
- * @route   GET /api/v1/libros/get/all
- * @access  Public
- */
 export const getAllLibros = async (req, res) => {
   try {
     // Obtener parámetros de query
@@ -68,11 +63,6 @@ export const getAllLibros = async (req, res) => {
   }
 };
 
-/**
- * @desc    Obtener un libro por ID
- * @route   GET /api/v1/libros/get/:id
- * @access  Public
- */
 export const getLibroById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -107,11 +97,7 @@ export const getLibroById = async (req, res) => {
   }
 };
 
-/**
- * @desc    Crear un nuevo libro
- * @route   POST /api/v1/libros/post
- * @access  Public
- */
+
 export const createLibro = async (req, res) => {
   try {
     const {
@@ -189,11 +175,6 @@ export const createLibro = async (req, res) => {
   }
 };
 
-/**
- * @desc    Actualizar un libro
- * @route   PATCH /api/v1/libros/update/:id
- * @access  Public
- */
 export const updateLibro = async (req, res) => {
   try {
     const { id } = req.params;
@@ -260,11 +241,6 @@ export const updateLibro = async (req, res) => {
   }
 };
 
-/**
- * @desc    Eliminar libro
- * @route   DELETE /api/v1/libros/delete/:id
- * @access  Public
- */
 export const deleteLibro = async (req, res) => {
   try {
     const { id } = req.params;
