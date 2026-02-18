@@ -108,9 +108,14 @@ const libroSchema = new mongoose.Schema(
       validate: {
         validator: function(url) {
           // Permitir null, undefined o cadena vacía
-          if (!url || url.trim() === '') return true;
+          if (!url) return true;
+
+          // Trimear y verificar si está vacío después del trim
+          const trimmedUrl = url.trim();
+          if (trimmedUrl === '') return true;
+
           // Validar que sea una URL válida que empiece con http:// o https://
-          return /^https?:\/\/.+\..+/.test(url);
+          return /^https?:\/\/.+/.test(trimmedUrl);
         },
         message: 'La portada debe ser una URL válida que comience con http:// o https://'
       }
