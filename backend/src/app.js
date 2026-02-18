@@ -6,14 +6,24 @@ import { errorHandler, notFound } from './middlewares/errorHandler.js';
 
 const app = express();
 
-// CORS PRIMERO - MUY PERMISIVO
+// CORS - Configuración permisiva para todos los dominios de Vercel
 app.use(cors({
   origin: function(origin, callback) {
-    // Permitir todas las peticiones (incluso sin origin como Postman)
+    // Permitir peticiones sin origin (Postman, curl, etc.)
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    // Permitir localhost y todos los dominios de Vercel
+    if (origin.includes('localhost') || origin.includes('vercel.app')) {
+      return callback(null, true);
+    }
+
+    // Por si acaso, permitir otros orígenes también
     callback(null, true);
   },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
   credentials: true,
   optionsSuccessStatus: 200
 }));
