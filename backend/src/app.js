@@ -8,10 +8,13 @@ const app = express();
 
 // CORS PRIMERO - MUY PERMISIVO
 app.use(cors({
-  origin: '*',
+  origin: function(origin, callback) {
+    // Permitir todas las peticiones (incluso sin origin como Postman)
+    callback(null, true);
+  },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: false,
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true,
   optionsSuccessStatus: 200
 }));
 
