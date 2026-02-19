@@ -34,7 +34,7 @@ export const getAllLibros = async (req, res) => {
 
     // Obtener libros con filtros y paginación
     const libros = await Libro.find(filters)
-      .sort({ createdAt: -1 }) // Ordenar por más recientes
+      .sort({ createdAt: -1, _id: -1 }) // Ordenar por más recientes y luego por ID para consistencia
       .skip(skip)
       .limit(limit);
 
