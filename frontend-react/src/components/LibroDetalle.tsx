@@ -111,14 +111,28 @@ export default function LibroDetalle() {
         <div className="col-md-4">
           <div className="card shadow-sm mb-4">
             {libro.portada ? (
-              <img
-                src={libro.portada}
-                className="card-img-top"
-                alt={`Portada de ${libro.titulo}`}
-                onError={(e) => {
-                  e.currentTarget.src = 'https://via.placeholder.com/400x600?text=Sin+Portada'
-                }}
-              />
+              <div style={{
+                backgroundColor: '#f8f9fa',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '500px'
+              }}>
+                <img
+                  src={libro.portada}
+                  className="card-img-top"
+                  alt={`Portada de ${libro.titulo}`}
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                    maxHeight: '600px',
+                    objectFit: 'contain'
+                  }}
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://via.placeholder.com/400x600?text=Sin+Portada'
+                  }}
+                />
+              </div>
             ) : (
               <div
                 className="card-img-top bg-secondary d-flex align-items-center justify-content-center text-white"

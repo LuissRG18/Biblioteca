@@ -15,14 +15,22 @@ export default function LibroCard({ libro, onDelete, onViewDetail, onEdit }: Pro
     }}>
       {/* Portada del libro */}
       {libro.portada ? (
-        <div style={{ overflow: 'hidden', height: '300px' }}>
+        <div style={{
+          overflow: 'hidden',
+          height: '300px',
+          backgroundColor: '#f8f9fa',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
           <img
             src={libro.portada}
             className="card-img-top"
             alt={`Portada de ${libro.titulo}`}
             style={{
-              height: '300px',
-              objectFit: 'cover',
+              height: '100%',
+              width: '100%',
+              objectFit: 'contain',
               transition: 'transform 0.3s ease'
             }}
             onError={(e) => {
