@@ -1,8 +1,7 @@
-// Componente de página de inicio profesional
 export default function Home() {
   return (
     <>
-      {/* Hero Section */}
+
       <div style={{
         background: 'linear-gradient(135deg, #2C3E50 0%, #34495E 100%)',
         color: 'white',
@@ -36,10 +35,10 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Características */}
+
       <div className="container py-4">
         <div className="row g-4 mb-5">
-          {/* Feature 1 */}
+
           <div className="col-md-4">
             <div className="card h-100 border-0 shadow-sm">
               <div className="card-body text-center p-4">
@@ -64,7 +63,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Feature 2 */}
           <div className="col-md-4">
             <div className="card h-100 border-0 shadow-sm">
               <div className="card-body text-center p-4">
@@ -89,7 +87,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Feature 3 */}
           <div className="col-md-4">
             <div className="card h-100 border-0 shadow-sm">
               <div className="card-body text-center p-4">
@@ -115,7 +112,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Stack Tecnológico */}
         <div className="row justify-content-center mb-5">
           <div className="col-lg-10">
             <div className="card border-0" style={{
@@ -158,7 +154,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Estadísticas */}
         <div className="row g-4 text-center mb-5">
           <div className="col-md-3 col-6">
             <div className="p-3">
