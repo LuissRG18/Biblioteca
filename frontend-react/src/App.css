@@ -1,7 +1,43 @@
-/* ============================================
-   ESTILOS PERSONALIZADOS - Biblioteca MEAN
-   Paleta sobria y profesional
-   ============================================ */
+:root {
+  /* Paleta base oscura */
+  --primary: #1a1a1d;
+  --primary-dark: #1d1d20;
+  --primary-light: #2a2a2e;
+
+  /* Acentos complementarios */
+  --accent: #4a4a6a;
+  --accent-hover: #3a3a5a;
+
+  /* Secundarios */
+  --secondary: #6e6e8e;
+
+  /* Estados */
+  --success: #4ecdc4;
+  --danger: #ff6b6b;
+
+  /* Fondos */
+  --bg-main: #2c2c30;
+  --bg-card: #3c3c43;
+  --bg-hover: #5a5a61;
+
+  /* Bordes */
+  --border-color: #2e2e32;
+
+  /* Textos */
+  --text-primary: #e8e8ea;
+  --text-secondary: #a8a8b0;
+  --text-white: #ffffff;
+
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
 
 /* ============================================
    Override Bootstrap para paleta personalizada
@@ -277,6 +313,15 @@ footer {
 
 .libro-card:hover .card-img-top {
   transform: scale(1.05);
+}
+
+/* Título del libro en blanco */
+.card-title {
+  color: var(--text-white) !important;
+}
+
+.libro-card .card-title {
+  color: var(--text-white) !important;
 }
 
 /* Badge de disponibilidad */
