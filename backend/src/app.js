@@ -6,27 +6,21 @@ import { errorHandler, notFound } from './middlewares/errorHandler.js';
 
 const app = express();
 
-// CORS - Configuración permisiva para todos los dominios de Vercel
+// CORS - Configuración permisiva para Vercel
 app.use(cors({
   origin: function(origin, callback) {
-    // Permitir peticiones sin origin (Postman, curl, etc.)
-    if (!origin) {
-      return callback(null, true);
-    }
-
-    // Permitir localhost y todos los dominios de Vercel
-    if (origin.includes('localhost') || origin.includes('vercel.app')) {
-      return callback(null, true);
-    }
-
-    // Por si acaso, permitir otros orígenes también
-    callback(null, true);
+    console.log('[CORS] Origin recibido:', origin);
+    callback(null, true); // Permitir todos los orígenes
   },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
-  credentials: true,
+  credentials: false, // Cambia a false
   optionsSuccessStatus: 200
 }));
+
+// Manejo explícito de preflight
+app.options('*', cors());
+
 
 // Manejo explícito de preflight
 app.options('*', cors());
