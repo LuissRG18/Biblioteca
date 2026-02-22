@@ -4,7 +4,6 @@ Proyecto Full-Stack completo utilizando arquitectura MEAN con dos clientes front
 
 > **📊 Estado del Proyecto:** 🟢 Backend (100%) | 🟢 Angular (100%) | 🟢 React (100%) | 🟢 Docs (100%)  
 > **✅ PROYECTO COMPLETADO AL 100%**  
-> **📋 Ver checklist completo:** [`CHECKLIST_PROYECTO.md`](./CHECKLIST_PROYECTO.md)  
 > **🎉 React completado:** Ver [`frontend-react/COMPLETADO.md`](./frontend-react/COMPLETADO.md)  
 > **🎉 Angular completado:** Ver [`frontend-angular/ANGULAR_COMPLETADO.md`](./frontend-angular/ANGULAR_COMPLETADO.md)
 
@@ -20,8 +19,9 @@ Proyecto Full-Stack completo utilizando arquitectura MEAN con dos clientes front
 - 📱 **Diseño Responsive** (mobile, tablet, desktop)
 - 🔄 **Loading States** y mensajes de éxito/error
 - 🛡️ **Reglas de Negocio** implementadas en el backend
-- 📚 **Base de Datos** poblada con 25+ libros de ejemplo
+- 📚 **Base de Datos** poblada con 40+ libros de ejemplo
 - 📖 **Documentación Completa** para cada componente
+- 🌐 **Desplegado en Vercel** (Backend + Ambos Frontends)
 
 ---
 
@@ -56,6 +56,9 @@ npm run dev  # http://localhost:3001
 - [Instalación y Configuración](#-instalación-y-configuración)
 - [Estructura del Proyecto](#-estructura-del-proyecto)
 - [Cumplimiento de Requisitos](#-cumplimiento-de-requisitos-del-proyecto)
+- [Deployment en Vercel](#-deployment-en-vercel)
+- [Capturas de Pantalla](#-capturas-de-pantalla)
+- [Solución de Problemas](#-solución-de-problemas-comunes)
 - [Documentación Adicional](#-documentación-adicional)
 
 ---
@@ -64,12 +67,8 @@ npm run dev  # http://localhost:3001
 
 | Documento | Descripción |
 |-----------|-------------|
-| [`INICIO_RAPIDO.md`](./INICIO_RAPIDO.md) | Guía rápida para iniciar el proyecto en 5 minutos |
-| [`PROYECTO_COMPLETO.md`](./PROYECTO_COMPLETO.md) | Resumen ejecutivo completo del proyecto |
 | [`INICIO_PROYECTO.md`](./INICIO_PROYECTO.md) | Guía para iniciar todo el proyecto (Backend + Frontends) |
-| [`CHECKLIST_PROYECTO.md`](./CHECKLIST_PROYECTO.md) | Checklist completo de requisitos y rúbrica de evaluación |
-| [`RESUMEN_EJECUTIVO.md`](./RESUMEN_EJECUTIVO.md) | Resumen ejecutivo del proyecto para entrega |
-| [`PLAN_DE_ACCION.md`](./PLAN_DE_ACCION.md) | Plan paso a paso para completar React y Angular |
+| [`PROYECTO_COMPLETO.md`](./PROYECTO_COMPLETO.md) | Resumen ejecutivo completo del proyecto |
 | [`backend/MONGODB_SETUP_TUTORIAL.md`](./backend/MONGODB_SETUP_TUTORIAL.md) | Tutorial completo de configuración MongoDB Atlas |
 | [`backend/API_TESTING.md`](./backend/API_TESTING.md) | Guía de testing con ejemplos y casos de prueba |
 | [`frontend-react/README.md`](./frontend-react/README.md) | Documentación específica del frontend React |
@@ -243,10 +242,13 @@ npm install
 
 Crear archivo `.env` en la raíz de `backend/`:
 ```env
-PORT=3000
 MONGODB_URI=mongodb+srv://usuario:password@cluster.mongodb.net/biblioteca?retryWrites=true&w=majority
 NODE_ENV=development
 ```
+
+**⚠️ IMPORTANTE para Vercel:**
+- NO incluir `PORT` en las variables de entorno de producción
+- Vercel asigna el puerto automáticamente
 
 4. **Poblar la base de datos:**
 ```bash
@@ -305,7 +307,7 @@ La aplicación estará disponible en: `http://localhost:3001`
 
 ## 🌐 URLs de Acceso
 
-Una vez todo esté corriendo:
+### 🔴 Desarrollo Local
 
 | Componente | URL | Puerto |
 |------------|-----|--------|
@@ -313,6 +315,14 @@ Una vez todo esté corriendo:
 | **API Docs** | http://localhost:3000/api/v1 | 3000 |
 | **Frontend Angular** | http://localhost:4200 | 4200 |
 | **Frontend React** | http://localhost:3001 | 3001 |
+
+### 🌍 Producción (Vercel)
+
+| Componente | URL |
+|------------|-----|
+| **Backend API** | https://biblioteca-api-six.vercel.app/api/v1 |
+| **Frontend Angular** | https://biblioteca-angular-ashen.vercel.app |
+| **Frontend React** | https://biblioteca-react-opal.vercel.app |
 
 ---
 
@@ -471,12 +481,15 @@ Content-Type: application/json
 - [x] Loading states y mensajes
 
 ### 🎊 PROYECTO COMPLETADO AL 100%
-- [x] Backend funcionando en puerto 3000
-- [x] Frontend React funcionando en puerto 3001
-- [x] Frontend Angular funcionando en puerto 4200
-- [x] MongoDB con datos de prueba
-- [x] Documentación completa
-- [x] Todos los requisitos cumplidos
+- [x] Backend funcionando en puerto 3000 (local) y desplegado en Vercel
+- [x] Frontend React funcionando en puerto 3001 (local) y desplegado en Vercel
+- [x] Frontend Angular funcionando en puerto 4200 (local) y desplegado en Vercel
+- [x] MongoDB Atlas con 40+ libros de ejemplo
+- [x] Documentación completa y actualizada
+- [x] Todos los requisitos del proyecto cumplidos
+- [x] Deployment completo en producción
+- [x] CORS configurado correctamente
+- [x] Variables de entorno configuradas en Vercel
 
 ---
 
@@ -543,7 +556,6 @@ mongodb+srv://biblioteca_admin:<password>@cluster0.xxxxx.mongodb.net/?retryWrite
 
 Crear archivo `backend/.env`:
 ```env
-PORT=3000
 MONGODB_URI=mongodb+srv://biblioteca_admin:TU_PASSWORD_AQUI@cluster0.xxxxx.mongodb.net/biblioteca?retryWrites=true&w=majority
 NODE_ENV=development
 ```
@@ -563,7 +575,7 @@ NODE_ENV=development
 ```bash
 cd backend
 npm install
-npm run seed    # Poblar base de datos con 25 libros
+npm run seed    # Poblar base de datos con 40+ libros
 npm run dev     # Iniciar servidor en http://localhost:3000
 ```
 
@@ -571,15 +583,23 @@ npm run dev     # Iniciar servidor en http://localhost:3000
 ```bash
 cd frontend-react
 npm install
-npm run dev     # Iniciar en http://localhost:5173
+npm run dev     # Iniciar en http://localhost:3001
 ```
 
-### Frontend Angular (Próximamente)
+**Configurar variables de entorno para producción en Vercel:**
+- `VITE_API_URL` = `https://biblioteca-api-six.vercel.app/api/v1`
+
+### Frontend Angular
 ```bash
 cd frontend-angular
 npm install
-ng serve        # Iniciar en http://localhost:4200
+npm start       # Iniciar en http://localhost:4200
+# o
+ng serve
 ```
+
+**Configuración para producción:**
+- El archivo `src/environments/environment.prod.ts` ya está configurado con la URL de la API en Vercel
 
 ---
 
@@ -587,28 +607,31 @@ ng serve        # Iniciar en http://localhost:4200
 
 ### Backend
 - Node.js v18+
-- Express 4.x
-- MongoDB + Mongoose
-- CORS
-- dotenv
+- Express 4.18.2
+- MongoDB + Mongoose 8.23.0
+- CORS 2.8.5
+- dotenv 16.6.1
 
 ### Frontend React
-- React 19
-- React Router DOM 7
-- Bootstrap 5
-- TypeScript
-- Vite
-- Axios
+- React 19.2.0
+- React Router DOM 7.9.6
+- Bootstrap 5.3.8
+- TypeScript 5.9.3
+- Vite 7.2.4
 
 ### Frontend Angular
 - Angular 17
 - Angular Router
 - Angular Reactive Forms
 - HttpClient
-- Bootstrap 5
-- Bootstrap Icons
-- TypeScript 5.2
-- RxJS
+- Bootstrap 5.3.8
+- @popperjs/core 2.11.8
+- TypeScript 5.2.2
+- RxJS 7.8.0
+
+### Deployment
+- Vercel (Backend + Ambos Frontends)
+- MongoDB Atlas (Base de Datos)
 
 ---
 
@@ -622,9 +645,10 @@ ng serve        # Iniciar en http://localhost:4200
 - [x] 6 reglas de negocio implementadas
 - [x] Validaciones completas
 - [x] Manejo de errores con status codes
-- [x] Base de datos poblada con 25 libros
+- [x] Base de datos poblada con 40+ libros
 - [x] Paginación, filtros y búsqueda
 - [x] Documentación completa
+- [x] Desplegado en Vercel
 
 ### ✅ Fase 2 - Frontend Angular (100% Completo)
 - [x] Proyecto Angular 17 creado
@@ -640,22 +664,22 @@ ng serve        # Iniciar en http://localhost:4200
 - [x] Validaciones en tiempo real
 - [x] Loading states y mensajes de éxito/error
 - [x] Diseño responsive
+- [x] Desplegado en Vercel
 
 ### ✅ Fase 3 - Frontend React (100% Completo)
 - [x] Estructura base con Vite + TypeScript
-- [x] Servicio API completo con Axios
+- [x] Servicio API completo (libroService.ts)
 - [x] 7 Componentes funcionales con hooks
 - [x] React Router DOM configurado
 - [x] CRUD completo funcionando
 - [x] Formularios controlados con validaciones
-- [x] Bootstrap 5 UI
+- [x] Bootstrap 5 UI con tema oscuro (#1a1a1d)
 - [x] Paginación y filtros
 - [x] Loading states y mensajes
 - [x] Diseño responsive
-- [x] Formularios controlados con validaciones
-- [x] Bootstrap UI completo
-- [x] Paginación y filtros
+- [x] Cards con imágenes optimizadas (object-fit: contain)
 - [x] Vista de detalle y edición
+- [x] Desplegado en Vercel
 
 ### ✅ Documentación (100% Completa)
 - [x] README completo con todos los apartados
@@ -663,30 +687,90 @@ ng serve        # Iniciar en http://localhost:4200
 - [x] Reglas de negocio explicadas
 - [x] Guías de instalación
 - [x] Tutoriales MongoDB
-
-**📋 Ver checklist detallado:** [`CHECKLIST_PROYECTO.md`](./CHECKLIST_PROYECTO.md)
+- [x] Documentación de deployment en Vercel
 
 ---
 
-## 🌐 URLs de Desarrollo
+## 🚀 Deployment en Vercel
 
-### API Backend
-- **Local:** http://localhost:3000/api/v1
-- **Documentación API:** http://localhost:3000/api/v1
+### Backend
+El backend está desplegado en Vercel como función serverless:
+- **URL:** https://biblioteca-api-six.vercel.app/api/v1
+- **Configuración:** Variables de entorno configuradas en Vercel Dashboard
+  - `MONGODB_URI`: Conexión a MongoDB Atlas
+  - `NODE_ENV`: production
+
+### Frontend Angular
+El frontend Angular está desplegado como sitio estático:
+- **URL:** https://biblioteca-angular-ashen.vercel.app
+- **Build:** `ng build --configuration production`
+- **Configuración:** `vercel.json` con rewrites para SPA routing
 
 ### Frontend React
-- **Local:** http://localhost:5173
+El frontend React está desplegado como sitio estático:
+- **URL:** https://biblioteca-react-opal.vercel.app
+- **Build:** `tsc -b && vite build`
+- **Configuración:** 
+  - Variable de entorno `VITE_API_URL` apuntando al backend
+  - `vercel.json` con rewrites para React Router
 
-### Frontend Angular (Próximamente)
-- **Local:** http://localhost:4200
+### CORS Configuration
+El backend tiene configurado CORS para permitir acceso desde:
+- https://biblioteca-angular-ashen.vercel.app
+- https://biblioteca-react-opal.vercel.app
+- http://localhost:4200 (desarrollo Angular)
+- http://localhost:3001 (desarrollo React)
 
 ---
 
-## 📈 Próximos Pasos
+## 📸 Capturas de Pantalla
 
-1. **Prioridad Alta:** Implementar Frontend Angular completo
-2. **Prioridad Media:** Deploy de todas las aplicaciones
-3. **Prioridad Baja:** Agregar capturas de pantalla
+### Frontend React
+- 🎨 **Diseño:** Tonalidad oscura (#1a1a1d) con contraste blanco
+- 📱 **Layout responsive** con Bootstrap 5
+- 🖼️ **Cards de libros** con imágenes completas (object-fit: contain)
+- ✨ **Navegación fluida** con React Router DOM
+
+### Frontend Angular
+- 🎨 **Diseño:** UI profesional con Bootstrap 5
+- 📋 **Tabla de libros** con paginación y filtros
+- 📝 **Formularios reactivos** con validaciones en tiempo real
+- 🔍 **Búsqueda avanzada** por título, autor y género
+
+---
+
+## 🔧 Solución de Problemas Comunes
+
+### Error 404 en rutas de Frontend (Vercel)
+**Solución:** Asegúrate de que el archivo `vercel.json` tenga la configuración de rewrites:
+```json
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+```
+
+### Error CORS en producción
+**Solución:** Verifica que el backend tenga configurado CORS con las URLs correctas de los frontends en Vercel.
+
+### Error 500 en el Backend (Vercel)
+**Causa común:** Variables de entorno no configuradas.
+**Solución:** Ir a Vercel Dashboard → Project Settings → Environment Variables y añadir:
+- `MONGODB_URI`
+- `NODE_ENV`
+
+**⚠️ NO incluir `PORT` en Vercel** - Se asigna automáticamente
+
+### Error de validación al actualizar libros
+**Causa:** Campos requeridos faltantes o valores fuera de rango.
+**Solución:** Verificar que todos los campos del formulario cumplan con las validaciones del modelo.
+
+### Imágenes cortadas en las cards
+**Solución:** Se ha configurado `object-fit: contain` para mostrar las imágenes completas.
 
 ---
 
@@ -697,6 +781,8 @@ ng serve        # Iniciar en http://localhost:4200
 **Fecha:** Febrero 2026
 
 **Institución:** Desarrollo de Aplicaciones Web
+
+**Repositorio:** [GitHub](https://github.com/luisrguill/Biblioteca)
 
 ---
 
