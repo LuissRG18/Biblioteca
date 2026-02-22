@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://biblioteca-api-six.vercel.app/api/v1'
+  apiUrl: 'https://biblioteca-backend-one.vercel.app/api/v1'
 };
 
